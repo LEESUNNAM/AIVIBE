@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 import ButtonSection from './components/sections/button-section';
+import InputSection from './components/sections/input-section';
 
 /**
  * App 컴포넌트
@@ -31,6 +32,7 @@ function App() {
         }}
       >
         <ButtonSection />
+        <InputSection />
         {/* 다음 섹션 컴포넌트가 이곳에 순차적으로 추가됩니다 */}
       </Container>
     </Box>
