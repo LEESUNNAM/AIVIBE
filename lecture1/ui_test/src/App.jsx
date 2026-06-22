@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
+import ButtonSection from './components/sections/button-section';
+
 /**
  * App 컴포넌트
  *
@@ -28,7 +30,8 @@ function App() {
           gap: { xs: 4, md: 6 },
         }}
       >
-        {/* 섹션 컴포넌트가 이곳에 순차적으로 추가됩니다 */}
+        <ButtonSection />
+        {/* 다음 섹션 컴포넌트가 이곳에 순차적으로 추가됩니다 */}
       </Container>
     </Box>
   );
