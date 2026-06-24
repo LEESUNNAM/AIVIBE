@@ -7,40 +7,7 @@
 - **분석 방식**: GIF 프레임 추출(PIL) 후 영역별 픽셀 색상 샘플링(Counter 기반 dominant color 추출), HSV 채도 필터링을 통한 포인트 컬러 검출, 프레임 간 픽셀 diff로 모션 패턴 분석, GIF 메타데이터로 프레임 duration/루프 측정
 - **문서 포맷 참고**: `DesignSystem/BOOK_DesignSystem.md`
 
-## 1. 컬러 시스템
-
-### CSS 변수 정의
-```css
-:root {
-  /* Character Colors */
-  --color-skin: #C6957E;
-  --color-skin-highlight: #E4CCB6;
-  --color-hair: #1C1414;
-  --color-eye-iris: #3A3F4C;
-
-  /* Accent Colors */
-  --color-accent-gold: #C08A35;     /* 헤어밴드 */
-  --color-accent-blue: #5B93C3;     /* 의상·리본 / 유리돔 반사광 */
-  --color-accent-blue-light: #8EC6F7;
-
-  /* Capsule Frame Colors */
-  --color-frame-dark: #3B3A42;
-  --color-frame-mid: #6F6F71;
-  --color-frame-light: #B3B5C1;
-}
-```
-
-### 컬러 사용 가이드
-- **`--color-skin` / `--color-skin-highlight`**: 피규어 피부의 베이스/하이라이트 톤. 웜톤 베이지 계열로, 명암 표현에 두 톤을 함께 사용한다.
-- **`--color-hair` (#1C1414)**: 거의 블랙에 가까운 다크 브라운. 헤어와 눈동자 외곽선(pupil outline)에 동일 계열을 사용해 통일감을 준다.
-- **`--color-eye-iris` (#3A3F4C)**: 다크 네이비-그레이 눈동자 색. 화이트 캐치라이트와의 대비가 표정의 핵심 디테일이다.
-- **`--color-accent-gold` (#C08A35)**: 머스타드 골드 헤어밴드 색상. 캐릭터 전체에서 가장 채도가 높은 포인트 컬러로, 포인트 액세서리에만 제한적으로 사용한다.
-- **`--color-accent-blue` / `--color-accent-blue-light`**: 의상·리본 색상이자 캡슐 유리돔에 반사되는 하늘색 라이트. 두 톤을 그라디언트로 함께 사용한다.
-- **`--color-frame-dark` / `-mid` / `-light`**: 캐릭터를 감싸는 메탈 그립 링의 무채색 그라디언트. 톱니 텍스처의 음영 표현에 사용한다.
-
-> 측정 근거: GIF 프레임을 RGB로 변환한 뒤 영역별로 크롭(얼굴 중앙, 정수리, 우안 클로즈업)하여 Counter로 dominant color를 추출했다. 포인트 블루는 HSV 채도 0.4 이상·색相 190~230˚ 구간을 필터링해 추출한 값이다.
-
-## 2. 프레임 & 쉐이프 (Capsule / Vignette)
+## 1. 프레임 & 쉐이프 (Capsule / Vignette)
 
 ### CSS 변수 정의
 ```css
@@ -56,7 +23,7 @@
 - 캔버스 비율은 368:496(가로:세로 ≈ 0.74:1)로 세로가 더 긴 포트레잇 비율이다. 프로필 썸네일, 캐릭터 카드 등에 동일 비율 사용을 권장한다.
 - 프레임 네 귀퉁이는 어두운 비네팅으로 처리되어 시선이 중앙 캐릭터로 모이는 구조다.
 
-## 3. 모션 & 애니메이션
+## 2. 모션 & 애니메이션
 
 ### CSS 변수 정의
 ```css
