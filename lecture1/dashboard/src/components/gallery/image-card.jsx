@@ -81,13 +81,13 @@ function ImageCard({ image, currentUserId, onDeleted }) {
       </Box>
       <CardActions sx={{ justifyContent: 'flex-end', pt: 0 }}>
         <Tooltip title="다운로드">
-          <IconButton onClick={handleDownload} size="small">
+          <IconButton aria-label="다운로드" onClick={handleDownload} size="small">
             <DownloadIcon fontSize="small" />
           </IconButton>
         </Tooltip>
         {isOwner && (
           <Tooltip title="삭제">
-            <IconButton onClick={handleDelete} disabled={isDeleting} size="small">
+            <IconButton aria-label="삭제" onClick={handleDelete} disabled={isDeleting} size="small">
               <DeleteIcon fontSize="small" />
             </IconButton>
           </Tooltip>
