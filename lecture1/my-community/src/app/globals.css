@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+:root {
+  /* CAT_SEA_ColorSystem 기반 */
+  --color-primary: #376586;
+  --color-primary-light: #6F90A8;
+  --color-primary-dark: #2B4F69;
+  --color-secondary: #9AB4C2;
+  --color-accent: #AC6A2A;
+  --color-bg-primary: #EFF3F5;
+  --color-bg-secondary: #F5F8F9;
+  --color-text-primary: #1A2B35;
+  --color-text-secondary: #213D50;
+  --color-text-muted: #7A8E9B;
+  --color-button-primary: #AC6A2A;
+  --color-button-hover: #815020;
+  --color-link: #335D7B;
+  --color-link-hover: #294C64;
+
+  /* UI 추가 변수 */
+  --color-white: #FFFFFF;
+  --color-border: #C4D3DA;
+  --color-like: #FF6B6B;
+  --color-sky: #9AB4C2;
+  --color-sky-light: #EFF3F5;
+  --color-soft-gray: #F5F8F9;
+  --color-text-main: #1A2B35;
+  --color-text-sub: #7A8E9B;
+
+  /* 타이포그래피 */
+  --font-title: 28px;
+  --font-subtitle: 22px;
+  --font-body: 16px;
+  --font-caption: 13px;
+
+  /* 그림자 */
+  --shadow-card: 0 12px 32px rgba(36, 52, 59, 0.08);
+  --shadow-card-hover: 0 20px 48px rgba(36, 52, 59, 0.14);
+  --shadow-dialog: 0 20px 60px rgba(30, 95, 122, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Noto Sans KR', 'SUIT', system-ui, -apple-system, sans-serif;
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 999px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
