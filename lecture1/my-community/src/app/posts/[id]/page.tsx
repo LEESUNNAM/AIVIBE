@@ -3,7 +3,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPost } from '@/services/postService';
 import { getComments } from '@/services/commentService';
-import { mockUsers, currentUser } from '@/data/mockData';
+import { mockUsers, currentUser, mockPosts } from '@/data/mockData';
+
+export function generateStaticParams() {
+  return mockPosts.map((post) => ({ id: post.id }));
+}
 import Header from '@/components/layout/Header';
 import ProfileAvatar from '@/components/profile/ProfileAvatar';
 import CommentList from '@/components/comment/CommentList';

@@ -1,8 +1,13 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { getPost } from '@/services/postService';
+import { mockPosts } from '@/data/mockData';
 import Header from '@/components/layout/Header';
 import PostEditor from '@/components/post/PostEditor';
+
+export function generateStaticParams() {
+  return mockPosts.map((post) => ({ id: post.id }));
+}
 
 interface EditPageProps {
   params: Promise<{ id: string }>;
