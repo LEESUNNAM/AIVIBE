@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Post } from '@/types';
-import { mockUsers } from '@/data/mockData';
+import { Post, User } from '@/types';
+import { getAllUsers } from '@/services/authService';
 import ProfileAvatar from '@/components/profile/ProfileAvatar';
 
 /**
@@ -28,8 +28,14 @@ function formatDate(iso: string) {
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  const author = mockUsers.find((u) => u.id === post.userId);
+  const [users, setUsers] = useState<User[]>([]);
   const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    setUsers(getAllUsers());
+  }, []);
+
+  const author = users.find((u) => u.id === post.userId);
   const thumbnail = post.media.find((m) => m.type === 'image');
   const mediaTypes = [...new Set(post.media.map((m) => m.type))];
 

@@ -82,3 +82,11 @@ export async function getCurrentUser(): Promise<User | null> {
     return null;
   }
 }
+
+/** 전체 유저 목록 조회 — mockUsers(데모) + localStorage 가입 유저 */
+export function getAllUsers(): User[] {
+  return [
+    ...mockUsers,
+    ...getStoredUsers().map(({ password: _pw, ...u }) => u),
+  ];
+}
