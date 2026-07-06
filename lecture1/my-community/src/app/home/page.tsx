@@ -1,11 +1,18 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getPosts } from '@/services/postService';
+import { Post } from '@/types';
 import Header from '@/components/layout/Header';
 import PostGrid from '@/components/post/PostGrid';
 
-export default async function HomePage() {
-  const posts = await getPosts();
+export default function HomePage() {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    getPosts().then(setPosts);
+  }, []);
 
   return (
     <>
