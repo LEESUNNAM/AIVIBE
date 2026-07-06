@@ -1,17 +1,28 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getCurrentUser } from '@/services/authService';
 import { getPostsByUser } from '@/services/postService';
+import { User, Post } from '@/types';
 import Header from '@/components/layout/Header';
 import ProfileEditor from '@/components/profile/ProfileEditor';
 import PostCard from '@/components/post/PostCard';
 import EmptyState from '@/components/common/EmptyState';
 
-export default async function MyPage() {
-  const user = await getCurrentUser();
-  if (!user) return null;
+export default function MyPage() {
+  const [user, setUser] = useState<User | null>(null);
+  const [myPosts, setMyPosts] = useState<Post[]>([]);
 
-  const myPosts = await getPostsByUser(user.id);
+  useEffect(() => {
+    getCurrentUser().then((u) => {
+      if (!u) return;
+      setUser(u);
+      getPostsByUser(u.id).then(setMyPosts);
+    });
+  }, []);
+
+  if (!user) return null;
 
   return (
     <>
