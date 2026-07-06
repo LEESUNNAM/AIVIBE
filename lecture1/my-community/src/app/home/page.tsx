@@ -7,12 +7,29 @@ import { Post } from '@/types';
 import Header from '@/components/layout/Header';
 import PostGrid from '@/components/post/PostGrid';
 
+const FILTERS = [
+  { key: 'all', label: '전체' },
+  { key: 'image', label: '🖼️ 이미지' },
+  { key: 'audio', label: '🎵 음원' },
+  { key: 'video', label: '🎬 동영상' },
+  { key: 'text', label: '📝 텍스트' },
+] as const;
+
+type FilterKey = (typeof FILTERS)[number]['key'];
+
 export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
 
   useEffect(() => {
     getPosts().then(setPosts);
   }, []);
+
+  const filteredPosts = posts.filter((post) => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'text') return post.media.length === 0;
+    return post.media.some((media) => media.type === activeFilter);
+  });
 
   return (
     <>
@@ -82,28 +99,32 @@ export default function HomePage() {
             flexWrap: 'wrap',
           }}
         >
-          {['전체', '🖼️ 이미지', '🎵 음원', '🎬 동영상'].map((tab, i) => (
-            <button
-              key={tab}
-              style={{
-                padding: '8px 18px',
-                borderRadius: '999px',
-                border: `1px solid ${i === 0 ? 'var(--color-primary)' : 'var(--color-border)'}`,
-                background: i === 0 ? 'var(--color-primary)' : 'var(--color-white)',
-                color: i === 0 ? 'var(--color-white)' : 'var(--color-text-secondary)',
-                fontSize: 'var(--font-caption)',
-                fontWeight: i === 0 ? 700 : 500,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {tab}
-            </button>
-          ))}
+          {FILTERS.map((filter) => {
+            const isActive = filter.key === activeFilter;
+            return (
+              <button
+                key={filter.key}
+                onClick={() => setActiveFilter(filter.key)}
+                style={{
+                  padding: '8px 18px',
+                  borderRadius: '999px',
+                  border: `1px solid ${isActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                  background: isActive ? 'var(--color-primary)' : 'var(--color-white)',
+                  color: isActive ? 'var(--color-white)' : 'var(--color-text-secondary)',
+                  fontSize: 'var(--font-caption)',
+                  fontWeight: isActive ? 700 : 500,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {filter.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* 게시글 그리드 */}
-        <PostGrid posts={posts} />
+        <PostGrid posts={filteredPosts} />
       </main>
 
       {/* 플로팅 글쓰기 버튼 (모바일) */}
