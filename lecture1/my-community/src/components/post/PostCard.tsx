@@ -35,7 +35,7 @@ export default function PostCard({ post }: PostCardProps) {
 
   return (
     <Link
-      href={`/posts/${post.id}`}
+      href={`/posts?id=${post.id}`}
       style={{ textDecoration: 'none', display: 'block' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
