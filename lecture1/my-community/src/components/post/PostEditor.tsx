@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MediaFile, Post } from '@/types';
+import { MediaFile, Post, User } from '@/types';
 import { createPost, updatePost } from '@/services/postService';
-import { currentUser } from '@/data/mockData';
+import { getCurrentUser } from '@/services/authService';
 import Input from '@/components/common/Input';
 import Textarea from '@/components/common/Textarea';
 import Button from '@/components/common/Button';
@@ -27,6 +27,11 @@ export default function PostEditor({ initialPost }: PostEditorProps) {
   const [content, setContent] = useState(initialPost?.content ?? '');
   const [mediaList, setMediaList] = useState<MediaFile[]>(initialPost?.media ?? []);
   const [isSaving, setIsSaving] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+
+  React.useEffect(() => {
+    getCurrentUser().then(setLoggedInUser);
+  }, []);
 
   const handleUpload = (media: MediaFile) => setMediaList((prev) => [...prev, media]);
   const handleRemove = (id: string) => setMediaList((prev) => prev.filter((m) => m.id !== id));
@@ -37,7 +42,7 @@ export default function PostEditor({ initialPost }: PostEditorProps) {
     if (initialPost) {
       await updatePost(initialPost.id, { title, content, media: mediaList });
     } else {
-      await createPost(currentUser.id, { title, content, media: mediaList });
+      await createPost(loggedInUser?.id ?? 'unknown', { title, content, media: mediaList });
     }
     setIsSaving(false);
     router.push('/home');
