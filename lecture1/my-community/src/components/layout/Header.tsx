@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import ProfileAvatar from '@/components/profile/ProfileAvatar';
-import { currentUser } from '@/data/mockData';
+import { getCurrentUser, logout } from '@/services/authService';
+import { User } from '@/types';
 
 const NAV_LINKS = [
   { href: '/home', label: '홈' },
@@ -14,6 +15,18 @@ const NAV_LINKS = [
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    getCurrentUser().then(setUser);
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    await logout();
+    setUser(null);
+    router.push('/login');
+  };
 
   return (
     <header
@@ -86,35 +99,54 @@ export default function Header() {
 
         {/* 우측 프로필 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Link href='/mypage' style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-            <ProfileAvatar src={currentUser.profileImageUrl} nickname={currentUser.nickname} size={34} />
-            <span
+          {user ? (
+            <>
+              <Link href='/mypage' style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+                <ProfileAvatar src={user.profileImageUrl} nickname={user.nickname} size={34} />
+                <span
+                  style={{
+                    fontSize: 'var(--font-caption)',
+                    fontWeight: 600,
+                    color: 'var(--color-text-primary)',
+                  }}
+                >
+                  {user.nickname}
+                </span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                style={{
+                  padding: '6px 14px',
+                  borderRadius: '999px',
+                  fontSize: 'var(--font-caption)',
+                  fontWeight: 600,
+                  color: 'var(--color-text-muted)',
+                  border: '1px solid var(--color-border)',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <Link
+              href='/login'
               style={{
+                padding: '6px 14px',
+                borderRadius: '999px',
                 fontSize: 'var(--font-caption)',
                 fontWeight: 600,
-                color: 'var(--color-text-primary)',
-                display: 'none',
+                color: 'var(--color-white)',
+                background: 'var(--color-button-primary)',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
               }}
-              className='desktop-only'
             >
-              {currentUser.nickname}
-            </span>
-          </Link>
-          <Link
-            href='/login'
-            style={{
-              padding: '6px 14px',
-              borderRadius: '999px',
-              fontSize: 'var(--font-caption)',
-              fontWeight: 600,
-              color: 'var(--color-text-muted)',
-              border: '1px solid var(--color-border)',
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            로그아웃
-          </Link>
+              로그인
+            </Link>
+          )}
         </div>
       </div>
     </header>
