@@ -1,9 +1,9 @@
 import { User } from '@/types';
+import { updateNickname as updateAuthNickname } from './authService';
 
-/** 닉네임 변경 — Supabase Auth 연동 시 supabase.auth.updateUser() 로 교체 */
+/** 닉네임 변경 — localStorage 유저 정보 갱신 (Supabase 연동 시 supabase.auth.updateUser() 로 교체) */
 export async function updateNickname(userId: string, nickname: string): Promise<User> {
-  // supabase.auth.updateUser({ data: { nickname } })
-  return { id: userId, email: '', nickname, createdAt: '' };
+  return updateAuthNickname(userId, nickname);
 }
 
 /** 프로필 사진 변경 — Supabase Storage 연동 시 supabase.storage.from('avatars').upload() 로 교체 */

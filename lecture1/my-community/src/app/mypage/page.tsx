@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getCurrentUser } from '@/services/authService';
+import { updateNickname } from '@/services/profileService';
 import { getPostsByUser } from '@/services/postService';
 import { User, Post } from '@/types';
 import Header from '@/components/layout/Header';
@@ -21,6 +22,12 @@ export default function MyPage() {
       getPostsByUser(u.id).then(setMyPosts);
     });
   }, []);
+
+  const handleNicknameUpdate = async (nickname: string) => {
+    if (!user) return;
+    const updated = await updateNickname(user.id, nickname);
+    setUser(updated);
+  };
 
   if (!user) return null;
 
@@ -63,7 +70,7 @@ export default function MyPage() {
 
           {/* 프로필 편집 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <ProfileEditor user={user} />
+            <ProfileEditor user={user} onNicknameUpdate={handleNicknameUpdate} />
 
             {/* 좋아요한 글 (확장 가능 영역) */}
             <div

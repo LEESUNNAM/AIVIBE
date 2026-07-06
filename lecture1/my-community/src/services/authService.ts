@@ -83,10 +83,31 @@ export async function getCurrentUser(): Promise<User | null> {
   }
 }
 
-/** 전체 유저 목록 조회 — mockUsers(데모) + localStorage 가입 유저 */
+/** 전체 유저 목록 조회 — mockUsers(데모) + localStorage 가입 유저 (동일 id는 가입 유저 정보 우선) */
 export function getAllUsers(): User[] {
-  return [
-    ...mockUsers,
-    ...getStoredUsers().map(({ password: _pw, ...u }) => u),
-  ];
+  const storedUsers = getStoredUsers().map(({ password: _pw, ...u }) => u);
+  const storedIds = new Set(storedUsers.map((u) => u.id));
+  return [...mockUsers.filter((u) => !storedIds.has(u.id)), ...storedUsers];
+}
+
+/** 닉네임 변경 — 가입 유저는 localStorage 갱신, 데모(mockUsers) 계정은 현재 세션에만 반영 (Supabase 연동 시 supabase.auth.updateUser() 로 교체) */
+export async function updateNickname(userId: string, nickname: string): Promise<User> {
+  const storedUsers = getStoredUsers();
+  const idx = storedUsers.findIndex((u) => u.id === userId);
+
+  let updated: User;
+  if (idx >= 0) {
+    storedUsers[idx] = { ...storedUsers[idx], nickname };
+    saveStoredUsers(storedUsers);
+    const { password: _pw, ...user } = storedUsers[idx];
+    updated = user;
+  } else {
+    const mockUser = mockUsers.find((u) => u.id === userId);
+    if (!mockUser) throw new Error('사용자를 찾을 수 없습니다.');
+    updated = { ...mockUser, nickname };
+  }
+
+  const session = await getCurrentUser();
+  if (session?.id === userId) saveSession(updated);
+  return updated;
 }
