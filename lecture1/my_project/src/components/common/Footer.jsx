@@ -38,7 +38,7 @@ function Footer() {
           aria-label="GitHub"
         >
           <svg width="20" height="20" viewBox="0 0 19 19" aria-hidden="true">
-            <use href="/icons.svg#github-icon" />
+            <use href={`${import.meta.env.BASE_URL}icons.svg#github-icon`} />
           </svg>
         </IconButton>
         <IconButton
