@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import DesignServicesRoundedIcon from '@mui/icons-material/DesignServicesRounded';
 
 function generateStampClipPath({ pointsX = 14, pointsY = 9, depth = 2 } = {}) {
   const points = [];
@@ -78,7 +79,18 @@ function StampCard({ title, signature, tags = [], periodInfo, stackInfo }) {
       <Box sx={{ position: 'absolute', bottom: 14, left: 14, ...cornerDotSx }} />
       <Box sx={{ position: 'absolute', bottom: 14, right: 14, ...cornerDotSx }} />
 
-      <Box>
+      <DesignServicesRoundedIcon
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          fontSize: { xs: 140, md: 220 },
+          color: 'rgba(255,255,255,0.18)',
+        }}
+      />
+
+      <Box sx={{ position: 'relative' }}>
         <Typography
           sx={{
             fontFamily: '"Dancing Script", cursive',
@@ -103,7 +115,7 @@ function StampCard({ title, signature, tags = [], periodInfo, stackInfo }) {
         </Typography>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         {tags.length > 0 && (
           <Typography
             sx={{
