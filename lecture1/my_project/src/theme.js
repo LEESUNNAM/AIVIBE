@@ -30,7 +30,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Pretendard", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontSize: '1.75rem',
       fontWeight: 600,
