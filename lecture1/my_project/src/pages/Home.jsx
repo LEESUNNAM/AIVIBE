@@ -1,5 +1,6 @@
 import Header from '../components/common/Header';
 import Hero from '../components/landing/Hero';
+import Profile from '../components/landing/Profile';
 import PortfolioGrid from '../components/landing/PortfolioGrid';
 import Footer from '../components/common/Footer';
 
@@ -16,6 +17,7 @@ function Home() {
     <>
       <Header />
       <Hero />
+      <Profile />
       <PortfolioGrid />
       <Footer />
     </>
