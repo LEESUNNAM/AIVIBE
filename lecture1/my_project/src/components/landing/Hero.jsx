@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import StampCard from '../ui/StampCard';
+import { categories } from '../../utils/portfolioData';
 
 /**
  * Hero 컴포넌트
@@ -21,22 +23,21 @@ function Hero() {
         textAlign: 'center',
       }}
     >
-      <Typography
-        variant="h1"
-        sx={{
-          fontSize: { xs: '2rem', md: '2.75rem' },
-          color: '#FFFFFF',
-          mb: 2,
-        }}
-      >
-        안녕하세요, 프론트엔드 개발자입니다
-      </Typography>
+      <StampCard
+        title="Portfolio"
+        signature="Sunnam Lee"
+        tags={categories.filter((category) => category !== '전체')}
+        periodInfo={{ label: 'Period', value: '2024 - 2026' }}
+        stackInfo={{ label: 'Stack', values: ['React', 'MUI', 'Vite'] }}
+      />
+
       <Typography
         variant="subtitle1"
         sx={{
           color: '#EAF6FB',
           maxWidth: 600,
           mx: 'auto',
+          mt: 5,
           mb: 4,
         }}
       >
