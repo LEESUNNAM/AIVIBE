@@ -80,6 +80,7 @@ function PortfolioGrid() {
             description={item.description}
             category={item.category}
             tags={item.tags}
+            image={item.image}
             link={item.link}
           />
         ))}

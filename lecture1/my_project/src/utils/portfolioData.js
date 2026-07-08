@@ -1,13 +1,17 @@
+import dashboardThumb from '../assets/projects/dashboard.png';
+import communityThumb from '../assets/projects/community.png';
+
 export const categories = ['전체', 'Web', 'App', 'Design'];
 
 export const portfolioItems = [
   {
     id: 1,
-    title: '커뮤니티 플랫폼 리디자인',
-    description: '사용자 참여도를 높이기 위한 커뮤니티 서비스 UI/UX 개선 프로젝트',
+    title: 'Ocean Gallery Community',
+    description: '이미지·음원·영상·텍스트를 공유하는 갤러리형 커뮤니티 서비스',
     category: 'Web',
-    tags: ['React', 'MUI', 'Figma'],
-    link: '#',
+    tags: ['React', 'MUI', 'Supabase'],
+    image: communityThumb,
+    link: 'https://leesunnam.github.io/AIVIBE/home/',
   },
   {
     id: 2,
@@ -27,11 +31,12 @@ export const portfolioItems = [
   },
   {
     id: 4,
-    title: '이커머스 대시보드',
-    description: '판매 데이터를 한눈에 확인할 수 있는 관리자 대시보드',
+    title: 'File Share Hub 대시보드',
+    description: '파일 업로드·공유 현황을 관리하는 로그인 기반 대시보드',
     category: 'Web',
-    tags: ['React', 'Chart.js'],
-    link: '#',
+    tags: ['React', 'MUI', 'Supabase'],
+    image: dashboardThumb,
+    link: 'https://leesunnam.github.io/dashboard/',
   },
   {
     id: 5,

@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
-import IconButton from '@mui/material/IconButton';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 /**
@@ -12,17 +11,26 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
  * @param {string} description - 프로젝트 한 줄 설명 [Required]
  * @param {string} category - 프로젝트 카테고리 배지 텍스트 [Required]
  * @param {Array<string>} tags - 사용 기술 태그 목록 [Optional, 기본값: []]
- * @param {string} link - 상세 링크 URL [Optional, 기본값: '#']
+ * @param {string} image - 썸네일 이미지 경로 [Optional, 없으면 그라디언트 대체]
+ * @param {string} link - 클릭 시 이동할 사이트 URL [Optional, 기본값: '#']
  *
  * Example usage:
- * <PortfolioCard title="포트폴리오 웹사이트" description="..." category="Web" tags={['React']} link="#" />
+ * <PortfolioCard title="포트폴리오 웹사이트" description="..." category="Web" tags={['React']} image={thumb} link="https://example.com" />
  */
-function PortfolioCard({ title, description, category, tags = [], link = '#' }) {
+function PortfolioCard({ title, description, category, tags = [], image, link = '#' }) {
   return (
     <Box
+      component="a"
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${title} 사이트로 이동`}
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        textDecoration: 'none',
+        color: 'inherit',
+        cursor: 'pointer',
         '&:hover .card-action': { opacity: 1 },
       }}
     >
@@ -31,7 +39,9 @@ function PortfolioCard({ title, description, category, tags = [], link = '#' }) 
           position: 'relative',
           aspectRatio: '1.28',
           borderRadius: 0,
-          background: 'linear-gradient(135deg, #88B7D4 0%, #3D7E97 100%)',
+          backgroundImage: image ? `url(${image})` : 'linear-gradient(135deg, #88B7D4 0%, #3D7E97 100%)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'top center',
           overflow: 'hidden',
         }}
       >
@@ -48,26 +58,25 @@ function PortfolioCard({ title, description, category, tags = [], link = '#' }) 
             borderRadius: '999px',
           }}
         />
-        <IconButton
+        <Box
           className="card-action"
-          component="a"
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${title} 상세 보기`}
-          size="small"
           sx={{
             position: 'absolute',
             top: 8,
             right: 8,
+            width: 32,
+            height: 32,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
             bgcolor: 'rgba(255, 255, 255, 0.85)',
             opacity: { xs: 1, md: 0 },
             transition: 'opacity 0.2s ease',
-            '&:hover': { bgcolor: '#FFFFFF' },
           }}
         >
           <ArrowOutwardIcon fontSize="small" sx={{ color: 'sky.accent' }} />
-        </IconButton>
+        </Box>
       </Box>
 
       <Typography
