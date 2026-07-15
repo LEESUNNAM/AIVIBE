@@ -40,6 +40,7 @@ const cornerDotSx = {
   borderRadius: '50%',
   border: '1.5px solid rgba(255,255,255,0.8)',
   bgcolor: 'rgba(255,255,255,0.35)',
+  zIndex: 2,
 };
 
 /**
@@ -74,30 +75,34 @@ function StampCard({ title, signature, tags = [], periodInfo, stackInfo }) {
         justifyContent: 'space-between',
       }}
     >
-      <Box sx={{ position: 'absolute', top: 14, left: 14, ...cornerDotSx }} />
-      <Box sx={{ position: 'absolute', top: 14, right: 14, ...cornerDotSx }} />
-      <Box sx={{ position: 'absolute', bottom: 14, left: 14, ...cornerDotSx }} />
-      <Box sx={{ position: 'absolute', bottom: 14, right: 14, ...cornerDotSx }} />
-
       <Box
         component="img"
         src={heroPhoto}
         alt=""
         sx={{
           position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: { xs: '62%', md: '52%' },
-          aspectRatio: '4 / 3',
+          inset: 0,
+          width: '100%',
+          height: '100%',
           objectFit: 'cover',
-          borderRadius: 3,
-          opacity: 0.4,
-          filter: 'grayscale(50%)',
+          zIndex: 0,
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(135deg, rgba(56,160,205,0.55) 0%, rgba(50,146,187,0.65) 100%)',
+          zIndex: 0,
         }}
       />
 
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'absolute', top: 14, left: 14, ...cornerDotSx }} />
+      <Box sx={{ position: 'absolute', top: 14, right: 14, ...cornerDotSx }} />
+      <Box sx={{ position: 'absolute', bottom: 14, left: 14, ...cornerDotSx }} />
+      <Box sx={{ position: 'absolute', bottom: 14, right: 14, ...cornerDotSx }} />
+
+      <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Typography
           sx={{
             fontFamily: '"Dancing Script", cursive',
@@ -122,7 +127,7 @@ function StampCard({ title, signature, tags = [], periodInfo, stackInfo }) {
         </Typography>
       </Box>
 
-      <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         {tags.length > 0 && (
           <Typography
             sx={{
