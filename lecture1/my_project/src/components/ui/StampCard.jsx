@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import DesignServicesRoundedIcon from '@mui/icons-material/DesignServicesRounded';
+import heroPhoto from '../../assets/hero-photo.jpg';
 
 function generateStampClipPath({ pointsX = 14, pointsY = 9, depth = 2 } = {}) {
   const points = [];
@@ -79,14 +79,21 @@ function StampCard({ title, signature, tags = [], periodInfo, stackInfo }) {
       <Box sx={{ position: 'absolute', bottom: 14, left: 14, ...cornerDotSx }} />
       <Box sx={{ position: 'absolute', bottom: 14, right: 14, ...cornerDotSx }} />
 
-      <DesignServicesRoundedIcon
+      <Box
+        component="img"
+        src={heroPhoto}
+        alt=""
         sx={{
           position: 'absolute',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          fontSize: { xs: 140, md: 220 },
-          color: 'rgba(255,255,255,0.18)',
+          width: { xs: '62%', md: '52%' },
+          aspectRatio: '4 / 3',
+          objectFit: 'cover',
+          borderRadius: 3,
+          opacity: 0.4,
+          filter: 'grayscale(50%)',
         }}
       />
 
