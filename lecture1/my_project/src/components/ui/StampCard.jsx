@@ -105,11 +105,12 @@ function StampCard({ title, signature, tags = [], periodInfo, stackInfo }) {
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Typography
           sx={{
-            fontFamily: '"Dancing Script", cursive',
+            fontFamily: '"Pretendard", sans-serif',
             fontWeight: 700,
-            fontSize: { xs: '2.75rem', md: '4rem' },
-            lineHeight: 1,
+            fontSize: { xs: '1.3rem', md: '1.75rem' },
+            lineHeight: 1.3,
             color: '#FFFFFF',
+            textShadow: '0 2px 8px rgba(20, 43, 51, 0.35)',
           }}
         >
           {title}

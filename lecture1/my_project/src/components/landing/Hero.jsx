@@ -24,7 +24,7 @@ function Hero() {
       }}
     >
       <StampCard
-        title="Portfolio"
+        title="사랑하는 아들의 합격을 축하합니다"
         signature="Sunnam Lee"
         tags={categories.filter((category) => category !== '전체')}
         periodInfo={{ label: 'Period', value: '2024 - 2026' }}
